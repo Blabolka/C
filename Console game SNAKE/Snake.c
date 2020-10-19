@@ -12,25 +12,25 @@
 #define AREASIZEX	18
 #define AREASIZEY	10		
 
-typedef struct{	//Структура для параметров змеи
+typedef struct{	//Structure for snake parameters
 	int way;
 	int x,y;
 }Snake;
 
-typedef struct{ //Структура для параметров еды
+typedef struct{ //Structure for food parameters
 	int x,y;
 }Food;
 
-void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray);	//Функция отрисовки
-Snake* move(Snake *snake, int sizeOfSnake);									//Функция управления змейкой
-Food spawn_food(Snake *snake, Food food, int sizeOfSnake);					//Функция спавна еды
-void setcur(int x, int y);													//Функция установки положения курсора консоли
-void change_background_color();												//Функция смены фона и текста
-void change_keyboard_language();											//Функция смены раскладки клавиатуры 
-void change_console_settings();												//Функция смены настроек шрифтов консоли
-void disable_cursor_blinking();												//Функция отключения мигания курсора
+void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray);	//Render function
+Snake* move(Snake *snake, int sizeOfSnake);									//Snake control function
+Food spawn_food(Snake *snake, Food food, int sizeOfSnake);					//Food spawn function
+void setcur(int x, int y);													//Console cursor position setting function
+void change_background_color();												//Background and text change function
+void change_keyboard_language();											//Keyboard layout change function
+void change_console_settings();												//Console font change function
+void disable_cursor_blinking();												//Cursor blink off function
 
-const unsigned int miliseconds = 300;	//Время отведённое на поворот(в милисекундах)
+const unsigned int miliseconds = 300;	//Turn Allowed Time (in milliseconds)
 
 int main(){
 	
@@ -39,10 +39,10 @@ int main(){
     change_console_settings();
     disable_cursor_blinking();
     
-    SetConsoleTitle("Snake");	//Меняет название название открывшегося окна
+    SetConsoleTitle("Snake");	//Changes the name of the name of the opened window
     
 	Snake *snake;
-	int sizeOfSnakeArray = 5;	//Размер динамически выделенной памяти под змейку
+	int sizeOfSnakeArray = 5;	//The size of the dynamically allocated memory for the snake
 	snake = (Snake*)malloc(sizeOfSnakeArray*sizeof(Snake));
 	int sizeOfSnake = 2;
 	
@@ -65,10 +65,10 @@ void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray){
 	food = spawn_food(snake,food,sizeOfSnake);
 	
 	int i;
-	int flag1=0; //Отвечает за касание к краю карты
-	int flag2=0; //Отвечает за проверку печати кусочка змеи
-	int flag3=0; //Отвечает за касание змеи к еде
-	int xFact=0, yFact=0; //Фактическое положение отрисовки поля(будут сравниваться с x,y для установки точки нахождения объета)
+	int flag1=0; //Responsible for touching the edge of the map
+	int flag2=0; //Responsible for checking render the seal of the snake piece
+	int flag3=0; //Responsible for the touch of the snake to food
+	int xFact=0, yFact=0; //The actual draw position of the field (will be compared with x, y to set the point of the object)
 		
 	while(1){
 	    setcur(0,0);
@@ -80,7 +80,7 @@ void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray){
 			printf("|");
 			for(xFact=0 ; xFact<AREASIZEX ; xFact++){
 				
-				/*За проверку столновения головы змеи со своим хвостом*/
+				/*For checking the collision of the snake's head with tail*/
 				for(i=1 ; i<sizeOfSnake ; i++){
 					if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
 						system("cls");
@@ -90,7 +90,7 @@ void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray){
 					}
 				}
 				
-				/*За отрисовку змеи*/
+				/*For drawing the snake*/
 				for(i=0 ; i<sizeOfSnake ; i++){
 					if(snake[i].x == xFact && snake[i].y == yFact){
 						printf("@");
@@ -101,7 +101,7 @@ void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray){
 					}
 				}
 				
-				/*За отрисовку еды, проверку касания с головой змеи и увеличение массива змеи в случае нехватки*/
+				/*For drawing food, checking for touching the snake's head and increasing the snake array*/
 				if(food.x == snake[0].x && food.y == snake[0].y){
 					food = spawn_food(snake,food,sizeOfSnake);
 					if(sizeOfSnake == sizeOfSnakeArray){
@@ -115,7 +115,7 @@ void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray){
 					flag2=1;
 				}
 				
-				if(flag2==0){ //Ставится пробел, если никакого объекта в точке отрисовки нет
+				if(flag2==0){ //Place a space if there is nothing to draw
 					printf(" ");
 				}
 				flag2=0;	
@@ -189,7 +189,7 @@ Snake* move(Snake *snake, int sizeOfSnake){
 		snake[0].x++;
 	}
 	
-	for(i=sizeOfSnake-1 ; i>0 ; i--){ //Изменение координат тела змеи(не считая головы)
+	for(i=sizeOfSnake-1 ; i>0 ; i--){ //Changing the coordinates of the snake's body (not counting the head)
 		if(i==1){
 			snake[i].x = tempX;
 			snake[i].y = tempY;
@@ -224,7 +224,7 @@ Food spawn_food(Snake *snake, Food food, int sizeOfSnake){
 }
 
 void setcur(int x, int y){
-	/*Меняет положение курсора(работает как очистка быстрее чем system("cls"))*/
+	/*Changes cursor position (works like clearing faster than system("cls"))*/
 	COORD coord;
     coord.X = 0;
 	coord.Y = 0;
@@ -232,18 +232,18 @@ void setcur(int x, int y){
 }
 
 void change_background_color(){
-	system("color 0F");		//Меняет цвет текста на чёрный, а фон на белый
-	/*Первое значение отвечает за цвет фона, второе за текст*/
+	system("color 0F");		//Changes the text color to black and the background to white
+	/*The first value is responsible for the background color, the second for the text color*/
 }
 
 void change_keyboard_language(){
-	/*Меняет раскладку клавиатуры для консоли на английскую(для текущего потока)*/
+	/*Changes the keyboard layout for the console window to English*/
 	PostMessage(GetForegroundWindow(), WM_INPUTLANGCHANGEREQUEST, 1, 0x04090409);	
 }
 
 void change_console_settings(){
-	/*Меняет текст в консоли, его размер и толщину, а также шрифт*/
-    CONSOLE_FONT_INFOEX cfi;
+	/*Changes the font, its size and thickness*/
+    CONSOLE_FONT_INFOEX cfi;	
     cfi.cbSize          = sizeof(CONSOLE_FONT_INFOEX);
     cfi.nFont           = 6;
     cfi.dwFontSize.X    = 7;
@@ -255,7 +255,7 @@ void change_console_settings(){
 }
 
 void disable_cursor_blinking(){
-	/*Отключение мигания курсора(хорошо видно мигаение курсора на Windows 10)*/
+	/*Disable cursor blinking (blinking cursor is clearly visible on Windows 10)*/
 	CONSOLE_CURSOR_INFO cci;
     cci.dwSize=99;
     cci.bVisible=0;
