@@ -4,10 +4,10 @@
 #include <time.h>
 #include <windows.h>
 
-#define UP 			1
-#define DOWN 		2
-#define LEFT		3
-#define RIGHT		4
+#define UP	1
+#define DOWN 2
+#define LEFT	3
+#define RIGHT	4
 
 #define AREASIZEX	18
 #define AREASIZEY	10		
