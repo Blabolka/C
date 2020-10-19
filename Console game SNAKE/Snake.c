@@ -4,8 +4,8 @@
 #include <time.h>
 #include <windows.h>
 
-#define UP	1
-#define DOWN 2
+#define UP		1
+#define DOWN	2
 #define LEFT	3
 #define RIGHT	4
 
@@ -36,10 +36,10 @@ int main(){
 	
 	change_background_color();
 	change_keyboard_language();
-    change_console_settings();
-    disable_cursor_blinking();
+	change_console_settings();
+	disable_cursor_blinking();
     
-    SetConsoleTitle("Snake");	//Changes the name of the name of the opened window
+	SetConsoleTitle("Snake");	//Changes the name of the name of the opened window
     
 	Snake *snake;
 	int sizeOfSnakeArray = 5;	//The size of the dynamically allocated memory for the snake
@@ -226,7 +226,7 @@ Food spawn_food(Snake *snake, Food food, int sizeOfSnake){
 void setcur(int x, int y){
 	/*Changes cursor position (works like clearing faster than system("cls"))*/
 	COORD coord;
-    coord.X = 0;
+	coord.X = 0;
 	coord.Y = 0;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
@@ -243,23 +243,23 @@ void change_keyboard_language(){
 
 void change_console_settings(){
 	/*Changes the font, its size and thickness*/
-    CONSOLE_FONT_INFOEX cfi;	
-    cfi.cbSize          = sizeof(CONSOLE_FONT_INFOEX);
-    cfi.nFont           = 6;
-    cfi.dwFontSize.X    = 7;
-    cfi.dwFontSize.Y    = 16;
-    cfi.FontFamily      = 54;
-    cfi.FontWeight      = 400;
-    wcscpy(cfi.FaceName, L"Lucida Console");
-    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), 0, &cfi);
+	CONSOLE_FONT_INFOEX cfi;	
+	cfi.cbSize			= sizeof(CONSOLE_FONT_INFOEX);
+	cfi.nFont			= 6;
+	cfi.dwFontSize.X	= 7;
+	cfi.dwFontSize.Y	= 16;
+	cfi.FontFamily		= 54;
+	cfi.FontWeight		= 400;
+	wcscpy(cfi.FaceName, L"Lucida Console");
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), 0, &cfi);
 }
 
 void disable_cursor_blinking(){
 	/*Disable cursor blinking (blinking cursor is clearly visible on Windows 10)*/
 	CONSOLE_CURSOR_INFO cci;
-    cci.dwSize=99;
-    cci.bVisible=0;
-    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE),&cci);
+	cci.dwSize=99;
+	cci.bVisible=0;
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE),&cci);
 }
 
 
