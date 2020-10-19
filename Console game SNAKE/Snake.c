@@ -22,13 +22,13 @@ typedef struct{ //Structure for food parameters
 }Food;
 
 void show_game_area(Snake *snake, int sizeOfSnake, int sizeOfSnakeArray);	//Render function
-Snake* move(Snake *snake, int sizeOfSnake);									//Snake control function
-Food spawn_food(Snake *snake, Food food, int sizeOfSnake);					//Food spawn function
-void setcur(int x, int y);													//Console cursor position setting function
-void change_background_color();												//Background and text change function
-void change_keyboard_language();											//Keyboard layout change function
-void change_console_settings();												//Console font change function
-void disable_cursor_blinking();												//Cursor blink off function
+Snake* move(Snake *snake, int sizeOfSnake);	//Snake control function
+Food spawn_food(Snake *snake, Food food, int sizeOfSnake);	//Food spawn function
+void setcur(int x, int y);	//Console cursor position setting function
+void change_background_color();	//Background and text change function
+void change_keyboard_language();	//Keyboard layout change function
+void change_console_settings();	//Console font change function
+void disable_cursor_blinking();	//Cursor blink off function
 
 const unsigned int miliseconds = 300;	//Turn Allowed Time (in milliseconds)
 
@@ -232,7 +232,7 @@ void setcur(int x, int y){
 }
 
 void change_background_color(){
-	system("color 0F");		//Changes the text color to black and the background to white
+	system("color 0F");	//Changes the text color to black and the background to white
 	/*The first value is responsible for the background color, the second for the text color*/
 }
 
